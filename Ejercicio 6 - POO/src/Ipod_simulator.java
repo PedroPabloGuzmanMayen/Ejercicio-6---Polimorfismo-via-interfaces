@@ -78,8 +78,8 @@ public class Ipod_simulator implements IIpod_simulator {
 
     @Override
     public ICancion selectSpecificFavoriteSong(int index) throws Exception {
-
-        return null;
+        Song selectedsong = this.topTenSongs.get(index); 
+        return selectedsong;
     }
 
     @Override
