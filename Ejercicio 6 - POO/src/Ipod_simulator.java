@@ -6,6 +6,7 @@ public class Ipod_simulator implements IIpod_simulator {
     private ArrayList<Song> topTenSongs;
     private Boolean isLocked;
     private float volume;
+    private Boolean _isPlaying; 
 
 
     public Ipod_simulator(){
@@ -31,7 +32,7 @@ public class Ipod_simulator implements IIpod_simulator {
 
     @Override
     public float setVolume(float volume) {
-        this.volume = volume;
+        this.volume = volume+(float)(0.5);
         return this.volume;
     }
 
@@ -50,8 +51,7 @@ public class Ipod_simulator implements IIpod_simulator {
     @Override
     public int getActualIndex() {
 
-        int index =0;
-        return index;
+        return 0;
     }
 
     @Override
@@ -85,13 +85,32 @@ public class Ipod_simulator implements IIpod_simulator {
     @Override
     public ICancion[] getAllSongs() {
 
-        return null;
+        Song[] listofSongs = new Song[50];
+
+        for (int i =0; i<this.allsongs.size(); i++){
+            listofSongs[i] = this.allsongs.get(i);
+        }
+
+        return listofSongs;
     }
 
     @Override
     public String getStatus(boolean _isON, boolean _isLocked, boolean _isPlaying, ICancion _actualSong) {
+        String message = "";
+        if (_isON && _isLocked && _isPlaying){
+            message = "El Ipod está encendido pero bloqueado, se está reproduciendo la cancion:  " + _actualSong.getTitle();
+        }
+        if(_isON && !_isLocked && !_isPlaying){
+            message = "El Ipod esta encendido, no esta bloqueado, ninguna cancion se esta reproduciendo";
+        }
+        if (!_isON){
+            message = "El Ipod está apagado";
+        }
+        if(_isON && !_isLocked && _isPlaying){
+            message = "El Ipod esta encendido, no esta bloqueado, se está reproduciendo la cancion:  " + _actualSong.getTitle();
+        }
 
-        return null;
+        return message;
     }
 
     @Override
@@ -101,20 +120,37 @@ public class Ipod_simulator implements IIpod_simulator {
     }
 
     @Override
-    public void addSongToList(String _titulo, String _artista, String _album, String _duracion, int _id)
-            throws Exception {
+    public void addSongToList(String _titulo, String _artista, String _album, String _duracion, int _id) throws Exception {
 
+        Song song = new Song();
+        song.setAlbum(_album);
+        song.setArtist(_artista);
+        song.setTitle(_titulo);
+        song.setDuration(_duracion);
+        song.setID(_id);
+        this.allsongs.add(song);
         
     }
 
     @Override
     public void deleteSongFromList(int index) throws Exception {
 
-        
+        try{
+            this.allsongs.remove(index);
+
+        }catch(Exception e){
+
+        }
     }
 
     @Override
     public void deleteSongFromTop10(int index) throws Exception {
+        try{
+            this.topTenSongs.remove(index);
+
+        }catch(Exception e){
+
+        }
 
         
     }
@@ -142,6 +178,12 @@ public class Ipod_simulator implements IIpod_simulator {
     }
     public void setTopTenSongs(ArrayList<Song> topTenSongs) {
         this.topTenSongs = topTenSongs;
+    }
+    public Boolean get_isPlaying() {
+        return _isPlaying;
+    }
+    public void set_isPlaying(Boolean _isPlaying) {
+        this._isPlaying = _isPlaying;
     }
     
 
