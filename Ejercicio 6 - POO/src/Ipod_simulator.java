@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Ipod_simulator implements IIpod_simulator {
     private Boolean isOn;
@@ -7,11 +8,13 @@ public class Ipod_simulator implements IIpod_simulator {
     private Boolean isLocked;
     private float volume;
     private Boolean _isPlaying; 
+    private Scanner scanner;
 
 
     public Ipod_simulator(){
         topTenSongs = new ArrayList<Song>();
         allsongs = new ArrayList<Song>();
+        scanner = new Scanner(System.in);
     }
     @Override
     public boolean SwitchONOFF(boolean actual_state) {
@@ -63,6 +66,19 @@ public class Ipod_simulator implements IIpod_simulator {
     public void addToFavorite(ICancion _song) throws Exception {
 
         try{
+            _song = new Song();
+            System.out.println("Nombre de la cancion: ");
+            this.scanner.nextLine();
+            System.out.println("Artista de la cancion: ");
+            this.scanner.nextLine();
+            System.out.println("Duracion de la cancion: ");
+            this.scanner.nextLine();
+            System.out.println("Album de la cancion: ");
+            this.scanner.nextLine();
+            System.out.println("ID de la cancion: ");
+            this.scanner.nextInt();
+            this.scanner.nextLine();
+
 
         }catch(Exception e){
 
@@ -72,8 +88,8 @@ public class Ipod_simulator implements IIpod_simulator {
 
     @Override
     public ICancion selectSpecificSong(int index) throws Exception {
-
-        return null;
+        Song selectedsong = this.allsongs.get(index); 
+        return selectedsong;
     }
 
     @Override
@@ -115,8 +131,14 @@ public class Ipod_simulator implements IIpod_simulator {
 
     @Override
     public boolean isValidIndex(int index) {
-   
-        return false;
+        boolean isValid = false;
+        if (index > this.allsongs.size()){
+            isValid = false;
+        }
+        else{
+            isValid = true;
+        }
+        return isValid;
     }
 
     @Override
