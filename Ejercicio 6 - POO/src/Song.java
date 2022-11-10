@@ -13,13 +13,11 @@ public class Song implements ICancion {
 
     @Override
     public String getTitle() {
-        // TODO Auto-generated method stub
         return title;
     }
 
     @Override
     public void setArtist(String _artist) {
-        // TODO Auto-generated method stub
         
     }
 
