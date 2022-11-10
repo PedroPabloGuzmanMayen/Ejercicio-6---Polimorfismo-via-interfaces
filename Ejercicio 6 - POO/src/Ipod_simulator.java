@@ -54,7 +54,18 @@ public class Ipod_simulator implements IIpod_simulator {
     @Override
     public int getActualIndex() {
 
-        return 0;
+        int index = 0;
+
+        if (this._isPlaying){
+
+            
+
+        }
+        else{
+
+        }
+
+        return index;
     }
 
     @Override
